@@ -11,6 +11,17 @@
           <a class="nav-link" href="/campgrounds/new">New Campground</a>
           <!-- <a class="nav-link disabled">Disabled</a> -->
         </div>
+        <div class="navbar-nav ">
+          <% if(!currentUser) { %>
+          <a class="nav-link" href="/login">Login</a>
+          <% } %>
+          <% if (currentUser) { %>
+          <a class="nav-link" href="/logout">Logout</a>
+          <%} %>
+          <% if(!currentUser) { %>
+          <a class="nav-link" href="/register">Register</a>
+          <% } %>
+        </div>
       </div>
     </div>
   </nav>

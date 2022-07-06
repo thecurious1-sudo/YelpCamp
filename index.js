@@ -10,11 +10,16 @@ const Joi = require("joi");
 const { campgroundSchema, reviewSchema } = require("./schemas");
 let db;
 const session = require("express-session");
+const cookiePasrser=require("cookie-parser");
 
-const campgrounds = require("./routes/campgrounds");
-const reviews = require("./routes/reviews");
+const campgroundRoutes = require("./routes/campgrounds");
+const reviewRoutes = require("./routes/reviews");
+const userRoutes= require("./routes/users");
 
 const flash = require("connect-flash");
+const passport = require('passport');
+const LocalStrategy = require('passport-local');
+const User= require('./models/user');
 
 app.listen(3000, () => {
   console.log("Listening to 3000!");
@@ -30,17 +35,27 @@ const sessionConfigOptions = {
   resave: false,
   saveUninitialized: true,
   cookie: {
-    maxAge: 1000 * 60 * 60 * 24 * 7,
-    httpOnly: true,
-    expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
-  },
+      httpOnly: true,
+      expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
+      maxAge: 1000 * 60 * 60 * 24 * 7
+  }
 };
 app.use(session(sessionConfigOptions));
 app.use(flash());
+app.use(cookiePasrser());
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(User.authenticate()));
+
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
 
 app.use((req, res, next) => {
+  //console.log(req.session)
   res.locals.success = req.flash("success");
   res.locals.error = req.flash("error");
+  res.locals.currentUser= req.user;
   next();
 });
 mongoose
@@ -57,8 +72,9 @@ db.once("open", () => {
   console.log("Database connected");
 });
 
-app.use("/campgrounds", campgrounds);
-app.use("/campgrounds/:id/review", reviews);
+app.use("/campgrounds", campgroundRoutes);
+app.use("/campgrounds/:id/review", reviewRoutes);
+app.use('/', userRoutes);
 
 app.get("/", (req, res) => {
   res.render("home");

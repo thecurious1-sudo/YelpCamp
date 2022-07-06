@@ -30,6 +30,7 @@ const seedDB = async () => {
     const price= Math.floor(Math.random()*30)+10;
     const cities_index = Math.floor(Math.random() * 1000)
     const temp = new Campground({
+      author:'62c4986e33b172400ee8c53b',
       price: price,
       description:'Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores fuga ipsum ab, nam voluptas beatae eum qui esse obcaecati blanditiis, laudantium adipisci minima architecto quaerat sapiente aliquid labore. Maxime, accusamus.',
       image:'https://source.unsplash.com/collection/483251',
