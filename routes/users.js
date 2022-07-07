@@ -33,7 +33,7 @@ router.get('/login', async(req, res) => {
     res.render('users/login');
 });
 
-router.post('/login', passport.authenticate('local', { failureFlash: true, failureRedirect: '/login' }), (req, res) => {
+router.post('/login', passport.authenticate('local', { failureFlash: true, failureRedirect: '/login', keepSessionInfo:true }), (req, res) => {
     //console.log(req.session)    
     req.flash('success', 'Welcome to Yelp Camp!');   
     const redirectUrl = req.cookies.returnTo || '/campgrounds';
