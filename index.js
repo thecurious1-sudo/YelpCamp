@@ -1,5 +1,10 @@
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config();
+}
+
+console.log(process.env.CLOUDINARY_API_KEY);
+
 const express = require("express");
-const app = express();
 const path = require("path");
 const mongoose = require("mongoose");
 const methodOverride = require("method-override");
@@ -19,7 +24,9 @@ const userRoutes= require("./routes/users");
 const flash = require("connect-flash");
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
-const User= require('./models/user');
+const User = require('./models/user');
+
+const app = express();
 
 app.listen(3000, () => {
   console.log("Listening to 3000!");
@@ -52,7 +59,7 @@ passport.deserializeUser(User.deserializeUser());
 
 
 app.use((req, res, next) => {
-  console.log(req.session)
+  //console.log(req.session)
   res.locals.success = req.flash("success");
   res.locals.error = req.flash("error");
   res.locals.currentUser= req.user;
