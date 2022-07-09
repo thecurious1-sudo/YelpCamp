@@ -47,7 +47,8 @@ const seedDB = async () => {
           filename: 'YelpCamp/sngmhvzbzq3mapz8wqrc',
         }
       ],    
-      location: `${cities[cities_index].city}, ${cities[cities_index].state}`,
+      geometry: { type: 'Point', coordinates: [ -113.133115, 47.020078 ] },
+      location: `Ovando Montana`,
       title: `${returnRandomArrayElement(
         descriptors
       )} ${returnRandomArrayElement(places)} `
