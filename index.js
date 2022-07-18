@@ -32,9 +32,10 @@ const helmet = require("helmet");
 const dbUrl = process.env.DB_URL;
 //const dbUrl = 'mongodb://localhost:27017/yelpCamp';
 const MongoStore=require('connect-mongo');
+const port=process.env.PORT || 3000;
 
-app.listen(3000, () => {
-  console.log("Listening to 3000!");
+app.listen(port, () => {
+  console.log(`Listening to ${port}!`);
 });
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
