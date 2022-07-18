@@ -25,8 +25,7 @@ const returnRandomArrayElement = array =>
 
 const seedDB = async () => {
   await Campground.deleteMany({})
-  console.log(returnRandomArrayElement(descriptors))
-  for (let i = 0; i < 50; i++) {
+  for (let i = 0; i < 200; i++) {
     const price= Math.floor(Math.random()*30)+10;
     const cities_index = Math.floor(Math.random() * 1000)
     const temp = new Campground({
@@ -35,20 +34,22 @@ const seedDB = async () => {
       description:'Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores fuga ipsum ab, nam voluptas beatae eum qui esse obcaecati blanditiis, laudantium adipisci minima architecto quaerat sapiente aliquid labore. Maxime, accusamus.',
       images: [
         {
-          url: 'https://res.cloudinary.com/deqgjvwad/image/upload/v1657278797/YelpCamp/quucs8omn0bj4vlsghvm.jpg',
-          filename: 'YelpCamp/quucs8omn0bj4vlsghvm',
+          url: 'https://res.cloudinary.com/deqgjvwad/image/upload/v1657913938/YelpCamp/i2giqsx6otscvto6hpjs.jpg',
+          filename: 'YelpCamp/i2giqsx6otscvto6hpjs',    
         },
         {
-          url: 'https://res.cloudinary.com/deqgjvwad/image/upload/v1657278799/YelpCamp/mvkjw3y0rgfffoyuhr6x.jpg',
-          filename: 'YelpCamp/mvkjw3y0rgfffoyuhr6x',
+          url: 'https://res.cloudinary.com/deqgjvwad/image/upload/v1657913943/YelpCamp/nzjkuwmt8n45bwf6h5ld.jpg',
+          filename: 'YelpCamp/nzjkuwmt8n45bwf6h5ld',
+    
         },
         {
-          url: 'https://res.cloudinary.com/deqgjvwad/image/upload/v1657278802/YelpCamp/sngmhvzbzq3mapz8wqrc.jpg',
-          filename: 'YelpCamp/sngmhvzbzq3mapz8wqrc',
+          url: 'https://res.cloudinary.com/deqgjvwad/image/upload/v1657913947/YelpCamp/cilmd6k5zqnqtgkso1mr.jpg',
+          filename: 'YelpCamp/cilmd6k5zqnqtgkso1mr',
+    
         }
       ],    
-      geometry: { type: 'Point', coordinates: [ -113.133115, 47.020078 ] },
-      location: `Ovando Montana`,
+      geometry: { type: 'Point', coordinates: [cities[cities_index].longitude, cities[cities_index].latitude]},
+      location: `${cities[cities_index].city}, ${cities[cities_index].state}`,
       title: `${returnRandomArrayElement(
         descriptors
       )} ${returnRandomArrayElement(places)} `
